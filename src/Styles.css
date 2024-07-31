@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+    --color-hoverColor: #E4105D;
+    --color-principalColorSite: #15161B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-principalColorSite);
+    color: white;
+    font-family: "Public Sans", sans-serif;
+}
+
+.headerNavegacao ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+    margin-top: 30px;
+    list-style: none;
+}
+
+.menu-item a {
+    cursor: pointer;
+    color: white;
+    font-family: "Inter", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+}
+
+.menu-item a:hover {
+    color: var(--color-hoverColor);
+}
+
+.menu-item a:focus:after,
+.menu-item a:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.menu-item a:after {
+  content: "";
+  pointer-events: none;
+  bottom: -10px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-hoverColor);
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+button {
+    width: 210px;
+    border-radius: 8px;
+    padding: 8px;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--color-hoverColor);
+    color: white;
+    border: none;
+}
