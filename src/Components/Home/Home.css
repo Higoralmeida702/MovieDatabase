@@ -1,0 +1,68 @@
+
+
+.apresentacao {
+    margin-top: 30px;
+    padding: 90px;
+    color: black;
+}
+
+.apresentacao {
+    background-image: url("/Images/cinemaCamera.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    padding: 110px;
+}
+
+
+.titulo {
+    color: white;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.subTitulo {
+    font-size: 16px;
+    width: 800px;
+    font-weight: 700;
+}
+
+.buttonDescubra {
+    margin-top: 15px;
+    background-color: transparent;
+    border: none;
+    outline: var(--color-hoverColor) solid 1px;
+    font-size: 18px;
+    color: var(--color-principalColorSite);
+}
+
+.siteDetails {
+    display: grid   ;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: max-content;
+    margin: 55px 200px;
+    gap: 100px;
+}
+
+.siteDetailsContent{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.siteDetailsContent h1,p {
+    letter-spacing: 2px;
+}
+
+.siteDetailsContent p {
+    color: #959597;
+    font-size: 20px;
+    margin-top: 15px;
+}
+.imageHome {
+    border-radius: 100%;
+    height: 180px;
+    width: 200px;
+}
