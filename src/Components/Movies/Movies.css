@@ -1,0 +1,58 @@
+.movies-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+
+.tituloPopularesFilmes {
+    margin: 30px 80px;
+}
+
+.movies-list {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    user-select: none;
+    border-color: #fff;
+    height: 300px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.movies-item img,h3:hover {
+    cursor: pointer;
+}
+
+.scroll-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 30px;
+    height: 80px;
+    z-index: 1;
+}
+
+.scroll-button.left {
+    position: absolute;
+    left: 0;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
+.scroll-button.right {
+    position: absolute;
+    right: 0;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+
+}
+
+.posterFilme {
+    height: 200px;
+    width: 230px;
+    border-radius: 12px;
+}
