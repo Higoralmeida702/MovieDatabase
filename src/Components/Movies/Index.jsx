@@ -5,14 +5,20 @@ import './Movies.css';
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [romanceMovies, setRomanceMovies] = useState([]);
+  const [comediaMovies, setComediaMovies] = useState([]);
+  const [terrorMovies, setTerrorMovies] = useState([]);
+  const [documentarioMovies, setDocumentarioMovies] = useState([]);
   const apiKey = '71f48d983a1d7c2c8e64239136feee27';
   const moviesListRef = useRef(null);
   const romanceMoviesListRef = useRef(null);
+  const comediaListRef = useRef(null);
+  const terrorListRef = useRef(null);
+  const documentarioListRef = useRef(null);
 
   useEffect(() => {
     const fetchPopularMovies = async () => {
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`);
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&region=BR`);
         const movieList = response.data.results.slice(0, 10);
         setMovies(movieList);
       } catch (error) {
@@ -26,7 +32,7 @@ const Movies = () => {
   useEffect(() => {
     const fetchRomanceMovies = async () => {
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=10749&language=pt-BR`);
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=10749&language=pt-BR&region=BR`);
         const romanceList = response.data.results.slice(0, 10);
         setRomanceMovies(romanceList);
       } catch (error) {
@@ -36,6 +42,49 @@ const Movies = () => {
 
     fetchRomanceMovies();
   }, []);
+
+  useEffect(() => {
+    const fetchComediaMovies = async () => {
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=35&language=pt-BR&region=BR`);
+        const comediaList = response.data.results.slice(0, 10);
+        setComediaMovies(comediaList);
+      } catch (error) {
+        console.error('Erro ao obter os filmes de comédia:', error);
+      }
+    };
+
+    fetchComediaMovies();
+  }, []);
+
+  useEffect(() => {
+    const fetchTerrorMovies = async () => {
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27&language=pt-BR&region=BR`);
+        const terrorList = response.data.results.slice(0, 10);
+        setTerrorMovies(terrorList);
+      } catch (error) {
+        console.error('Erro ao obter os filmes de terror:', error);
+      }
+    };
+
+    fetchTerrorMovies();
+  }, []);
+
+  useEffect(() => {
+    const fetchDocumentarioMovies = async () => {
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=99&language=pt-BR&region=BR`);
+        const documentarioList = response.data.results.slice(0, 10);
+        setDocumentarioMovies(documentarioList);
+      } catch (error) {
+        console.error('Erro ao obter os filmes de documentario:', error);
+      }
+    };
+
+    fetchDocumentarioMovies();
+  }, []);
+
 
   const scrollLeft = (ref) => {
     if (ref.current) {
@@ -51,7 +100,7 @@ const Movies = () => {
 
   return (
     <div className='tituloPopularesFilmes'>
-      <h1>Os 10 filmes mais populares no momento</h1>
+      <h1>Os 10 filmes mais populares no Brasil no momento</h1>
       <div className="movies-container">
         <button className="scroll-button left" onClick={() => scrollLeft(moviesListRef)}>←</button>
         <div className="movies-list" ref={moviesListRef}>
@@ -70,7 +119,7 @@ const Movies = () => {
       </div>
 
       <section>
-        <h1>Os 10 filmes de Romance mais populares no momento</h1>
+        <h1>Filme de romance</h1>
         <div className="movies-container">
           <button className="scroll-button left" onClick={() => scrollLeft(romanceMoviesListRef)}>←</button>
           <div className="movies-list" ref={romanceMoviesListRef}>
@@ -86,6 +135,65 @@ const Movies = () => {
             ))}
           </div>
           <button className="scroll-button right" onClick={() => scrollRight(romanceMoviesListRef)}>→</button>
+        </div>
+      </section>
+
+      <section>
+        <h1>Filme de comédia</h1>
+        <div className="movies-container">
+          <button className="scroll-button left" onClick={() => scrollLeft(comediaListRef)}>←</button>
+          <div className="movies-list" ref={comediaListRef}>
+            {comediaMovies.map(movie => (
+              <div key={movie.id} className="movie-item">
+                <img 
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                  alt={movie.title} 
+                  className="posterFilme"
+                />
+                <h3>{movie.title}</h3>
+              </div>
+            ))}
+          </div>
+          <button className="scroll-button right" onClick={() => scrollRight(comediaListRef)}>→</button>
+        </div>
+      </section>
+
+      <section>
+        <h1>Filme de terror</h1>
+        <div className="movies-container">
+          <button className="scroll-button left" onClick={() => scrollLeft(terrorListRef)}>←</button>
+          <div className="movies-list" ref={terrorListRef}>
+            {terrorMovies.map(movie => (
+              <div key={movie.id} className="movie-item">
+                <img 
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                  alt={movie.title} 
+                  className="posterFilme"
+                />
+                <h3>{movie.title}</h3>
+              </div>
+            ))}
+          </div>
+          <button className="scroll-button right" onClick={() => scrollRight(terrorListRef)}>→</button>
+        </div>
+      </section>
+      <section>
+        <h1>Documentários</h1>
+        <div className="movies-container">
+          <button className="scroll-button left" onClick={() => scrollLeft(documentarioListRef)}>←</button>
+          <div className="movies-list" ref={documentarioListRef}>
+            {documentarioMovies.map(movie => (
+              <div key={movie.id} className="movie-item">
+                <img 
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
+                  alt={movie.title} 
+                  className="posterFilme"
+                />
+                <h3>{movie.title}</h3>
+              </div>
+            ))}
+          </div>
+          <button className="scroll-button right" onClick={() => scrollRight(documentarioListRef)}>→</button>
         </div>
       </section>
     </div>
