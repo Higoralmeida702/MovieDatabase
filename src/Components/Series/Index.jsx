@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import '../Movies/Movies.css';
+import Modal from '../Modal';
+import './Series.css'
 
 const Series = () => {
     const [series, setSeries] = useState([]);
@@ -9,6 +10,7 @@ const Series = () => {
     const [familiaSeries, setFamiliaSeries] = useState([]);
     const [documentarioSeries, setDocumentarioSeries] = useState([]);
     const [acaoSeries, setAcaoSeries] = useState([]);
+    const [selectedSerie, setSelectedSerie] = useState(null);
     const apiKey = '71f48d983a1d7c2c8e64239136feee27';
     const seriesListRef = useRef(null);
     const animacaoListRef = useRef(null);
@@ -113,14 +115,22 @@ const Series = () => {
         }
     };
 
+    const handleSerieClick = (serie) => {
+        setSelectedSerie(serie);
+    };
+
+    const closeModal = () => {
+        setSelectedSerie(null);
+    };
+
     return (
         <div className='tituloPopularesFilmes'>
             <h1>As 10 séries mais populares no Brasil no momento</h1>
-            <div className="movies-container">
+            <div className="series-container">
                 <button className="scroll-button left" onClick={() => scrollLeft(seriesListRef)}>←</button>
-                <div className="movies-list" ref={seriesListRef}>
+                <div className="series-list" ref={seriesListRef}>
                     {series.map(serie => (
-                        <div key={serie.id} className="series-item">
+                        <div key={serie.id} className="series-item" onClick={() => handleSerieClick(serie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
                                 alt={serie.name}
@@ -134,11 +144,11 @@ const Series = () => {
             </div>
 
             <h1>Animações</h1>
-            <div className="movies-container">
+            <div className="series-container">
                 <button className="scroll-button left" onClick={() => scrollLeft(animacaoListRef)}>←</button>
-                <div className="movies-list" ref={animacaoListRef}>
+                <div className="series-list" ref={animacaoListRef}>
                     {animacaoSeries.map(serie => (
-                        <div key={serie.id} className="series-item">
+                        <div key={serie.id} className="series-item" onClick={() => handleSerieClick(serie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
                                 alt={serie.name}
@@ -152,11 +162,11 @@ const Series = () => {
             </div>
 
             <h1>Comédia</h1>
-            <div className="movies-container">
+            <div className="series-container">
                 <button className="scroll-button left" onClick={() => scrollLeft(comediaListRef)}>←</button>
-                <div className="movies-list" ref={comediaListRef}>
+                <div className="series-list" ref={comediaListRef}>
                     {comediaSeries.map(serie => (
-                        <div key={serie.id} className="series-item">
+                        <div key={serie.id} className="series-item" onClick={() => handleSerieClick(serie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
                                 alt={serie.name}
@@ -170,11 +180,11 @@ const Series = () => {
             </div>
 
             <h1>Família</h1>
-            <div className="movies-container">
+            <div className="series-container">
                 <button className="scroll-button left" onClick={() => scrollLeft(familiaListRef)}>←</button>
-                <div className="movies-list" ref={familiaListRef}>
+                <div className="series-list" ref={familiaListRef}>
                     {familiaSeries.map(serie => (
-                        <div key={serie.id} className="series-item">
+                        <div key={serie.id} className="series-item" onClick={() => handleSerieClick(serie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
                                 alt={serie.name}
@@ -187,12 +197,12 @@ const Series = () => {
                 <button className="scroll-button right" onClick={() => scrollRight(familiaListRef)}>→</button>
             </div>
 
-            <h1>Documentário</h1>
-            <div className="movies-container">
+            <h1>Documentários</h1>
+            <div className="series-container">
                 <button className="scroll-button left" onClick={() => scrollLeft(documentarioListRef)}>←</button>
-                <div className="movies-list" ref={documentarioListRef}>
+                <div className="series-list" ref={documentarioListRef}>
                     {documentarioSeries.map(serie => (
-                        <div key={serie.id} className="series-item">
+                        <div key={serie.id} className="series-item" onClick={() => handleSerieClick(serie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
                                 alt={serie.name}
@@ -206,11 +216,11 @@ const Series = () => {
             </div>
 
             <h1>Ação</h1>
-            <div className="movies-container">
+            <div className="series-container">
                 <button className="scroll-button left" onClick={() => scrollLeft(acaoListRef)}>←</button>
-                <div className="movies-list" ref={acaoListRef}>
+                <div className="series-list" ref={acaoListRef}>
                     {acaoSeries.map(serie => (
-                        <div key={serie.id} className="series-item">
+                        <div key={serie.id} className="series-item" onClick={() => handleSerieClick(serie)}>
                             <img
                                 src={`https://image.tmdb.org/t/p/w500${serie.poster_path}`}
                                 alt={serie.name}
@@ -222,6 +232,19 @@ const Series = () => {
                 </div>
                 <button className="scroll-button right" onClick={() => scrollRight(acaoListRef)}>→</button>
             </div>
+
+            <Modal isOpen={!!selectedSerie} onClose={closeModal}>
+                {selectedSerie && (
+                    <div>
+                        <h2>{selectedSerie.name}</h2>
+                        <p>{selectedSerie.overview}</p>
+                        <p>{selectedSerie.overview || 'Descrição não disponível.'}</p>
+                        <p><strong>Avaliação:</strong> {selectedSerie.vote_average}</p>
+                        <p><strong>Data de lançamento:</strong> {selectedSerie.first_air_date}</p>
+
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 };

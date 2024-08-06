@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import './Movies.css';
+import Modal from '../Modal';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -8,6 +9,7 @@ const Movies = () => {
   const [comediaMovies, setComediaMovies] = useState([]);
   const [terrorMovies, setTerrorMovies] = useState([]);
   const [documentarioMovies, setDocumentarioMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const apiKey = '71f48d983a1d7c2c8e64239136feee27';
   const moviesListRef = useRef(null);
   const romanceMoviesListRef = useRef(null);
@@ -98,6 +100,14 @@ const Movies = () => {
     }
   };
 
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const closeModal = () => {
+    setSelectedMovie(null);
+  };
+
   return (
     <div className='tituloPopularesFilmes'>
       <h1>Os 10 filmes mais populares no Brasil no momento</h1>
@@ -105,10 +115,10 @@ const Movies = () => {
         <button className="scroll-button left" onClick={() => scrollLeft(moviesListRef)}>←</button>
         <div className="movies-list" ref={moviesListRef}>
           {movies.map(movie => (
-            <div key={movie.id} className="movie-item">
-              <img 
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                alt={movie.title} 
+            <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie)}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
                 className="posterFilme"
               />
               <h3>{movie.title}</h3>
@@ -119,15 +129,15 @@ const Movies = () => {
       </div>
 
       <section>
-        <h1>Filme de romance</h1>
+        <h1>Filmes de Romance</h1>
         <div className="movies-container">
           <button className="scroll-button left" onClick={() => scrollLeft(romanceMoviesListRef)}>←</button>
           <div className="movies-list" ref={romanceMoviesListRef}>
             {romanceMovies.map(movie => (
-              <div key={movie.id} className="movie-item">
-                <img 
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                  alt={movie.title} 
+              <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie)}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
                   className="posterFilme"
                 />
                 <h3>{movie.title}</h3>
@@ -139,15 +149,15 @@ const Movies = () => {
       </section>
 
       <section>
-        <h1>Filme de comédia</h1>
+        <h1>Filmes de Comédia</h1>
         <div className="movies-container">
           <button className="scroll-button left" onClick={() => scrollLeft(comediaListRef)}>←</button>
           <div className="movies-list" ref={comediaListRef}>
             {comediaMovies.map(movie => (
-              <div key={movie.id} className="movie-item">
-                <img 
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                  alt={movie.title} 
+              <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie)}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
                   className="posterFilme"
                 />
                 <h3>{movie.title}</h3>
@@ -159,15 +169,15 @@ const Movies = () => {
       </section>
 
       <section>
-        <h1>Filme de terror</h1>
+        <h1>Filmes de Terror</h1>
         <div className="movies-container">
           <button className="scroll-button left" onClick={() => scrollLeft(terrorListRef)}>←</button>
           <div className="movies-list" ref={terrorListRef}>
             {terrorMovies.map(movie => (
-              <div key={movie.id} className="movie-item">
-                <img 
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                  alt={movie.title} 
+              <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie)}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
                   className="posterFilme"
                 />
                 <h3>{movie.title}</h3>
@@ -183,10 +193,10 @@ const Movies = () => {
           <button className="scroll-button left" onClick={() => scrollLeft(documentarioListRef)}>←</button>
           <div className="movies-list" ref={documentarioListRef}>
             {documentarioMovies.map(movie => (
-              <div key={movie.id} className="movie-item">
-                <img 
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
-                  alt={movie.title} 
+              <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie)}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
                   className="posterFilme"
                 />
                 <h3>{movie.title}</h3>
@@ -196,6 +206,18 @@ const Movies = () => {
           <button className="scroll-button right" onClick={() => scrollRight(documentarioListRef)}>→</button>
         </div>
       </section>
+
+      <Modal isOpen={!!selectedMovie} onClose={closeModal}>
+        {selectedMovie && (
+          <div>
+            <h2>{selectedMovie.title}</h2> 
+            <p>{selectedMovie.overview || 'Descrição não disponível.'}</p>
+            <p><strong>Avaliação:</strong> {selectedMovie.vote_average}</p>
+            <p><strong>Data de lançamento:</strong> {selectedMovie.release_date}</p> {/* Data de lançamento do filme */}
+          </div>
+        )}
+      </Modal>
+
     </div>
   );
 };
