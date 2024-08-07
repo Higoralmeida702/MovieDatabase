@@ -2,57 +2,99 @@
     display: flex;
     align-items: center;
     position: relative;
-    margin-top: 30px;
+    margin-top: 2rem;
 }
 
-
 .tituloPopularesFilmes {
-    margin: 30px 80px;
+    margin: 2rem 5rem;
 }
 
 .movies-list {
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
     overflow-x: auto;
     user-select: none;
     border-color: #fff;
-    height: 300px;
+    height: 18.75rem;
     flex: 1;
     overflow: hidden;
-}
-
-.movies-item img,h3:hover {
-    cursor: pointer;
 }
 
 .scroll-button {
     background-color: #333;
     color: #fff;
     border: none;
-    padding: 10px;
+    padding: 0.625rem;
     cursor: pointer;
-    width: 30px;
-    height: 80px;
+    width: 1.875rem;
+    height: 5rem;
     z-index: 1;
 }
 
 .scroll-button.left {
     position: absolute;
     left: 0;
-    border-top-right-radius: 80px;
-    border-bottom-right-radius: 80px;
+    border-top-right-radius: 5rem;
+    border-bottom-right-radius: 5rem;
 }
 
 .scroll-button.right {
     position: absolute;
     right: 0;
-    border-top-left-radius: 80px;
-    border-bottom-left-radius: 80px;
-
+    border-top-left-radius: 5rem;
+    border-bottom-left-radius: 5rem;
 }
 
 .posterFilme {
-    height: 200px;
-    width: 230px;
-    border-radius: 12px;
+    height: 12.5rem;
+    width: 14.375rem;
+    border-radius: 0.75rem;
+}
+
+.posterFilme,
+h3:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .tituloPopularesFilmes {
+        margin: 2rem 3rem;
+    }
+
+    .scroll-button {
+        width: 1.5rem;
+        height: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tituloPopularesFilmes {
+        margin: 1.5rem 2rem;
+    }
+
+    .posterFilme {
+        height: 10rem;
+        width: 11.5rem;
+    }
+
+    .scroll-button {
+        width: 1.25rem;
+        height: 3.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tituloPopularesFilmes {
+        margin: 1rem 1.5rem;
+    }
+
+    .posterFilme {
+        height: 8rem;
+        width: 9rem;
+    }
+
+    .scroll-button {
+        width: 1rem;
+        height: 3rem;
+    }
 }

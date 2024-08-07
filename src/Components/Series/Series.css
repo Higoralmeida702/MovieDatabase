@@ -1,0 +1,47 @@
+.series-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.tituloPopularesFilmes {
+    margin: 2rem 5rem;
+}
+
+.series-list {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    user-select: none;
+    border-color: #fff;
+    height: 18.75rem;
+    flex: 1;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .tituloPopularesFilmes {
+        margin: 2rem 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tituloPopularesFilmes {
+        margin: 1.5rem 2rem;
+    }
+
+    .series-list {
+        height: 15rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tituloPopularesFilmes {
+        margin: 1rem 1.5rem;
+    }
+
+    .series-list {
+        height: 12rem;
+    }
+}
